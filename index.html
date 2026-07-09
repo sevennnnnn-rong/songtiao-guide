@@ -193,10 +193,601 @@
     </footer>
 
     <script>
+        // === 指南数据 ===
+        const guideData = {
+            nav: [
+                { id: 'home', icon: 'house', label: '首页概况' },
+                {
+                    id: 'enroll', icon: 'graduation-cap', label: '入学指南',
+                    children: [
+                        { id: 'enroll-process', label: '报到流程' },
+                        { id: 'enroll-majors', label: '招生专业' },
+                        { id: 'enroll-fees', label: '收费标准' },
+                        { id: 'enroll-notice', label: '注册须知' }
+                    ]
+                },
+                {
+                    id: 'study', icon: 'book-open', label: '学习指南',
+                    children: [
+                        { id: 'study-credit', label: '完全学分制' },
+                        { id: 'study-academy', label: '五大书院' },
+                        { id: 'study-tutor', label: '学业导师制' },
+                        { id: 'study-credit-recognition', label: '学分认定' },
+                        { id: 'study-graduation', label: '毕业要求' }
+                    ]
+                },
+                {
+                    id: 'life', icon: 'backpack', label: '生活指南',
+                    children: [
+                        { id: 'life-campus-card', label: '校园卡' },
+                        { id: 'life-network', label: '校园网络' },
+                        { id: 'life-express', label: '快递服务' },
+                        { id: 'life-transport', label: '交通出行' },
+                        { id: 'life-facilities', label: '生活设施' },
+                        { id: 'life-contact', label: '联系方式' }
+                    ]
+                },
+                { id: 'faq', icon: 'circle-help', label: '常见问题' }
+            ],
+            pages: {
+                // --- 入学指南 ---
+                'enroll-process': {
+                    title: '报到流程',
+                    content: `
+                        <div class="fade-in space-y-6">
+                            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md">
+                                <h3 class="text-lg font-bold text-gray-800 dark:text-gray-100 flex items-center">
+                                    <i data-lucide="clipboard-list" class="w-5 h-5 mr-2 text-orange-500"></i>
+                                    报到必备材料
+                                </h3>
+                                <ul class="mt-4 space-y-2 text-gray-600 dark:text-gray-300">
+                                    <li class="flex items-start"><span class="text-orange-500 mr-2">•</span>专科毕业证书（原件）</li>
+                                    <li class="flex items-start"><span class="text-orange-500 mr-2">•</span>录取通知书</li>
+                                    <li class="flex items-start"><span class="text-orange-500 mr-2">•</span>身份证原件及复印件</li>
+                                    <li class="flex items-start"><span class="text-orange-500 mr-2">•</span>近期免冠一寸照片若干张</li>
+                                    <li class="flex items-start"><span class="text-orange-500 mr-2">•</span>个人档案（按所在专科学校要求办理转接）</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md">
+                                <h3 class="text-lg font-bold text-gray-800 dark:text-gray-100 flex items-center">
+                                    <i data-lucide="map-pin" class="w-5 h-5 mr-2 text-orange-500"></i>
+                                    报到地点
+                                </h3>
+                                <p class="mt-4 text-gray-600 dark:text-gray-300">江苏省连云港市海州区高新八路2号 · 江苏海洋大学宋跳校区</p>
+                                <p class="mt-2 text-sm text-gray-500">报到期间，连云港汽车总站、苏欣快客站、连云港火车站均设有学校接站点，可乘坐接站大巴直达校区。</p>
+                            </div>
+                            <div class="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-xl p-4">
+                                <p class="text-sm text-orange-800 dark:text-orange-200 flex items-start">
+                                    <i data-lucide="info" class="w-4 h-4 mr-2 mt-0.5 flex-shrink-0"></i>
+                                    <span><strong>重要提示：</strong>未取得专科毕业证书者，不予办理入学手续。新生入学后需进行体格检查，按《普通高等学校招生体检工作指导意见》执行。</span>
+                                </p>
+                            </div>
+                        </div>
+                    `
+                },
+                'enroll-majors': {
+                    title: '招生专业（2026年）',
+                    content: `
+                        <div class="fade-in">
+                            <div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md">
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-sm">
+                                        <thead class="bg-blue-900 text-white">
+                                            <tr>
+                                                <th class="p-3 text-left">类别</th>
+                                                <th class="p-3 text-left">专业名称</th>
+                                                <th class="p-3 text-center">计划数</th>
+                                                <th class="p-3 text-center">学费（元/年）</th>
+                                                <th class="p-3 text-left">统考科目</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700"><td class="p-3">财经类</td><td class="p-3 font-medium">财务管理</td><td class="p-3 text-center">70</td><td class="p-3 text-center">5200</td><td class="p-3">高等数学、专业综合</td></tr>
+                                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700"><td class="p-3">电子信息类</td><td class="p-3 font-medium">电子信息工程</td><td class="p-3 text-center">65</td><td class="p-3 text-center">5800</td><td class="p-3">高等数学、专业综合</td></tr>
+                                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700"><td class="p-3">管理类（文）</td><td class="p-3 font-medium">工商管理</td><td class="p-3 text-center">65</td><td class="p-3 text-center">5200</td><td class="p-3">大学语文、专业综合</td></tr>
+                                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700"><td class="p-3">机械工程类</td><td class="p-3 font-medium">机械电子工程</td><td class="p-3 text-center">64</td><td class="p-3 text-center">5800</td><td class="p-3">高等数学、专业综合</td></tr>
+                                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700"><td class="p-3">计算机类</td><td class="p-3 font-medium">计算机科学与技术</td><td class="p-3 text-center">70</td><td class="p-3 text-center">5800</td><td class="p-3">高等数学、专业综合</td></tr>
+                                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700"><td class="p-3">计算机类</td><td class="p-3 font-medium">软件工程</td><td class="p-3 text-center">70</td><td class="p-3 text-center">5800</td><td class="p-3">高等数学、专业综合</td></tr>
+                                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700"><td class="p-3">土木建筑类</td><td class="p-3 font-medium">土木工程</td><td class="p-3 text-center">45</td><td class="p-3 text-center">5800</td><td class="p-3">高等数学、专业综合</td></tr>
+                                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700"><td class="p-3">文史类</td><td class="p-3 font-medium">汉语言文学</td><td class="p-3 text-center">95</td><td class="p-3 text-center">5200</td><td class="p-3">大学语文、专业综合</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-3">注：最终招生计划以江苏省教育厅公布为准，另含退役大学生士兵计划。</p>
+                        </div>
+                    `
+                },
+                'enroll-fees': {
+                    title: '收费标准',
+                    content: `
+                        <div class="fade-in space-y-4">
+                            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md">
+                                <h3 class="text-lg font-bold text-gray-800 dark:text-gray-100 flex items-center">
+                                    <i data-lucide="wallet" class="w-5 h-5 mr-2 text-orange-500"></i>
+                                    费用标准
+                                </h3>
+                                <div class="mt-4 space-y-3 text-gray-600 dark:text-gray-300">
+                                    <p><strong>学费：</strong>5200-5800 元/年（因专业而异）</p>
+                                    <p><strong>住宿费：</strong>700-1350 元/年（学校统一安排）</p>
+                                    <p><strong>其他：</strong>教材费、体检费等按实际收取</p>
+                                </div>
+                            </div>
+                            <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-4">
+                                <p class="text-sm text-blue-800 dark:text-blue-200 flex items-start">
+                                    <i data-lucide="info" class="w-4 h-4 mr-2 mt-0.5 flex-shrink-0"></i>
+                                    <span>收费标准与同专业同年级普通本科生相同，无额外加收。</span>
+                                </p>
+                            </div>
+                        </div>
+                    `
+                },
+                'enroll-notice': {
+                    title: '注册须知',
+                    content: `
+                        <div class="fade-in space-y-4">
+                            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md">
+                                <ul class="space-y-4 text-gray-600 dark:text-gray-300">
+                                    <li class="flex items-start"><span class="bg-orange-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3 mt-0.5 flex-shrink-0">1</span><span><strong>资格审查：</strong>凭专科毕业证书和录取通知书报到，未取得专科毕业证书者不予注册。</span></li>
+                                    <li class="flex items-start"><span class="bg-orange-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3 mt-0.5 flex-shrink-0">2</span><span><strong>体检要求：</strong>入学后按《普通高等学校招生体检工作指导意见》进行体格检查。</span></li>
+                                    <li class="flex items-start"><span class="bg-orange-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3 mt-0.5 flex-shrink-0">3</span><span><strong>编班方式：</strong>统一编入本科三年级学习，单独编班，专门制定教学计划。</span></li>
+                                    <li class="flex items-start"><span class="bg-orange-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3 mt-0.5 flex-shrink-0">4</span><span><strong>限制说明：</strong>专转本学生不得转专业和转学。</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    `
+                },
+                // --- 学习指南 ---
+                'study-credit': {
+                    title: '完全学分制',
+                    content: `
+                        <div class="fade-in space-y-6">
+                            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md">
+                                <h3 class="text-lg font-bold text-gray-800 dark:text-gray-100 flex items-center">
+                                    <i data-lucide="book-open" class="w-5 h-5 mr-2 text-blue-500"></i>
+                                    选课制
+                                </h3>
+                                <p class="mt-4 text-gray-600 dark:text-gray-300">学生享有充分的学业选择自主权。实行"平台+模块"课程体系，探索"学做融创"培养路径。学生可跨专业选修课程。</p>
+                            </div>
+                            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md">
+                                <h3 class="text-lg font-bold text-gray-800 dark:text-gray-100 flex items-center">
+                                    <i data-lucide="clock" class="w-5 h-5 mr-2 text-blue-500"></i>
+                                    弹性学制
+                                </h3>
+                                <p class="mt-4 text-gray-600 dark:text-gray-300">标准学制4年，可在3~6年区间内弹性毕业。修完大部分学业后可申请提前毕业，由导师制定特别培养方案。4年内未毕业可办理延长学制手续。</p>
+                            </div>
+                            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md">
+                                <h3 class="text-lg font-bold text-gray-800 dark:text-gray-100 flex items-center">
+                                    <i data-lucide="users" class="w-5 h-5 mr-2 text-blue-500"></i>
+                                    学业导师制
+                                </h3>
+                                <p class="mt-4 text-gray-600 dark:text-gray-300">按1:20配备学业导师（副教授以上）。导师负责"导学、导向、导心"，指导学生选专业、选课、职业生涯规划。每学期初制定学习计划，每月沟通两次以上。</p>
+                            </div>
+                        </div>
+                    `
+                },
+                'study-academy': {
+                    title: '五大书院',
+                    content: `
+                        <div class="fade-in space-y-6">
+                            <div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md">
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-sm">
+                                        <thead class="bg-blue-900 text-white">
+                                            <tr>
+                                                <th class="p-3 text-left">书院名称</th>
+                                                <th class="p-3 text-left">对应专业大类</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700"><td class="p-3 font-medium">海州书院</td><td class="p-3">机电类</td></tr>
+                                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700"><td class="p-3 font-medium">瀛洲书院</td><td class="p-3">计算机类</td></tr>
+                                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700"><td class="p-3 font-medium">郁洲书院</td><td class="p-3">经管类</td></tr>
+                                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700"><td class="p-3 font-medium">凌州书院</td><td class="p-3">中文类</td></tr>
+                                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700"><td class="p-3 font-medium">环洲书院</td><td class="p-3">专转本学生</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-4">
+                                <p class="text-sm text-blue-800 dark:text-blue-200 flex items-start">
+                                    <i data-lucide="info" class="w-4 h-4 mr-2 mt-0.5 flex-shrink-0"></i>
+                                    <span>书院实行"番号班"制，不分专业不分年级按男女比例混合编班，打破传统按专业分班模式。</span>
+                                </p>
+                            </div>
+                        </div>
+                    `
+                },
+                'study-tutor': {
+                    title: '学业导师制',
+                    content: `
+                        <div class="fade-in">
+                            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md">
+                                <p class="text-gray-600 dark:text-gray-300">学院按1:20师生比配备学业导师，全部具有副教授以上职称。导师负责"导学、导向、导心"——指导学生选择专业方向、选修课程、职业生涯规划。每学期开学指导学生制定学习计划，每月与学生沟通两次以上。</p>
+                            </div>
+                        </div>
+                    `
+                },
+                'study-credit-recognition': {
+                    title: '学分认定',
+                    content: `
+                        <div class="fade-in">
+                            <div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md">
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-sm">
+                                        <thead class="bg-blue-900 text-white">
+                                            <tr>
+                                                <th class="p-3 text-left">认定类型</th>
+                                                <th class="p-3 text-left">具体办法</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700"><td class="p-3 font-medium">课程名称/学分完全相同</td><td class="p-3">可直接认定</td></tr>
+                                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700"><td class="p-3 font-medium">名称/学分不完全相同但内容相近</td><td class="p-3">替代认定，学分差不超过1学分，所缺学分由选修课补足</td></tr>
+                                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700"><td class="p-3 font-medium">无相同或相近课程</td><td class="p-3">替代认定为素质拓展课（公选课）</td></tr>
+                                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700"><td class="p-3 font-medium">专科阶段已过CET-4</td><td class="p-3">可认定为本科阶段CET-4成绩</td></tr>
+                                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700"><td class="p-3 font-medium">计算机等级考试合格</td><td class="p-3">可冲抵公共计算机基础课程补考后的不及格成绩</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                },
+                'study-graduation': {
+                    title: '毕业要求',
+                    content: `
+                        <div class="fade-in">
+                            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md">
+                                <ul class="space-y-4 text-gray-600 dark:text-gray-300">
+                                    <li class="flex items-start"><span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3 mt-0.5 flex-shrink-0">1</span><span>毕业审核在控制总学分基础上主要考虑专业核心平台学分</span></li>
+                                    <li class="flex items-start"><span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3 mt-0.5 flex-shrink-0">2</span><span>提前毕业学生由导师制定特别培养方案，提前安排毕业实习和毕业论文</span></li>
+                                    <li class="flex items-start"><span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3 mt-0.5 flex-shrink-0">3</span><span>答辩合格即可毕业</span></li>
+                                    <li class="flex items-start"><span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3 mt-0.5 flex-shrink-0">4</span><span>符合条件者颁发江苏海洋大学本科毕业证书，可申请学士学位</span></li>
+                                    <li class="flex items-start"><span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3 mt-0.5 flex-shrink-0">5</span><span>四年内未毕业可办理延长学制手续</span></li>
+                                    <li class="flex items-start"><span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3 mt-0.5 flex-shrink-0">6</span><span>学院实施毕业生"一生一档一策"精准帮扶机制</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    `
+                },
+                // --- 生活指南 ---
+                'life-campus-card': {
+                    title: '校园卡',
+                    content: `
+                        <div class="fade-in space-y-4">
+                            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md">
+                                <h3 class="text-lg font-bold text-gray-800 dark:text-gray-100 flex items-center">
+                                    <i data-lucide="credit-card" class="w-5 h-5 mr-2 text-green-500"></i>
+                                    饭卡充值
+                                </h3>
+                                <p class="mt-4 text-gray-600 dark:text-gray-300">下载"中国农业银行"APP → 搜索"生活缴费" → 点击"校园卡"</p>
+                            </div>
+                            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md">
+                                <h3 class="text-lg font-bold text-gray-800 dark:text-gray-100 flex items-center">
+                                    <i data-lucide="droplets" class="w-5 h-5 mr-2 text-green-500"></i>
+                                    水卡充值
+                                </h3>
+                                <p class="mt-4 text-gray-600 dark:text-gray-300">食堂一楼中间靠墙卡机，放卡按"F"键输入金额按OK。</p>
+                                <p class="mt-2 text-sm text-orange-600 dark:text-orange-400"><strong>注意：</strong>余额≤10元才能充值</p>
+                            </div>
+                            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md">
+                                <h3 class="text-lg font-bold text-gray-800 dark:text-gray-100 flex items-center">
+                                    <i data-lucide="map-pin" class="w-5 h-5 mr-2 text-green-500"></i>
+                                    补办地点
+                                </h3>
+                                <p class="mt-4 text-gray-600 dark:text-gray-300">行政楼一楼102室（非节假日）</p>
+                            </div>
+                            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md">
+                                <h3 class="text-lg font-bold text-gray-800 dark:text-gray-100 flex items-center">
+                                    <i data-lucide="shopping-bag" class="w-5 h-5 mr-2 text-green-500"></i>
+                                    使用场景
+                                </h3>
+                                <p class="mt-4 text-gray-600 dark:text-gray-300">食堂吃饭、洗澡、热水、出入校园、图书馆借书、考试等</p>
+                            </div>
+                            <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-4">
+                                <p class="text-sm text-blue-800 dark:text-blue-200 flex items-start">
+                                    <i data-lucide="info" class="w-4 h-4 mr-2 mt-0.5 flex-shrink-0"></i>
+                                    <span><strong>权限恢复：</strong>水卡显示"消费权限过期"到食堂卡机上刷一下即可</span>
+                                </p>
+                            </div>
+                        </div>
+                    `
+                },
+                'life-network': {
+                    title: '校园网络',
+                    content: `
+                        <div class="fade-in space-y-4">
+                            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md">
+                                <h3 class="text-lg font-bold text-gray-800 dark:text-gray-100 flex items-center">
+                                    <i data-lucide="wifi" class="w-5 h-5 mr-2 text-green-500"></i>
+                                    校园Wi-Fi
+                                </h3>
+                                <p class="mt-4 text-gray-600 dark:text-gray-300">SSID为 jou-wifi，教室、图书馆等区域可免费连接访问校内资源</p>
+                            </div>
+                            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md">
+                                <h3 class="text-lg font-bold text-gray-800 dark:text-gray-100 flex items-center">
+                                    <i data-lucide="globe" class="w-5 h-5 mr-2 text-green-500"></i>
+                                    宽带办理
+                                </h3>
+                                <p class="mt-4 text-gray-600 dark:text-gray-300">校内设有运营商营业厅。三家运营商价格大致为：纯校园卡39元/月（80G流量+800分钟通话），校园卡+宽带49元/月（130G流量+800分钟通话+宿舍宽带）。</p>
+                                <p class="mt-2 text-sm text-gray-500">联系方式：微信JOUyidong 或电话18796275155</p>
+                            </div>
+                            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md">
+                                <h3 class="text-lg font-bold text-gray-800 dark:text-gray-100 flex items-center">
+                                    <i data-lucide="smartphone" class="w-5 h-5 mr-2 text-green-500"></i>
+                                    5G专网
+                                </h3>
+                                <p class="mt-4 text-gray-600 dark:text-gray-300">学校已开通5G校园双域专网，师生可自助申请。使用连云港手机号即可在全国范围内通过5G直接访问校园内网。</p>
+                                <p class="mt-2 text-sm text-blue-600"><a href="http://5g.jou.edu.cn" target="_blank" class="underline">开通地址：http://5g.jou.edu.cn</a></p>
+                            </div>
+                        </div>
+                    `
+                },
+                'life-express': {
+                    title: '快递服务',
+                    content: `
+                        <div class="fade-in space-y-4">
+                            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md">
+                                <h3 class="text-lg font-bold text-gray-800 dark:text-gray-100 flex items-center">
+                                    <i data-lucide="package" class="w-5 h-5 mr-2 text-green-500"></i>
+                                    收货地址
+                                </h3>
+                                <p class="mt-4 text-gray-600 dark:text-gray-300">江苏省连云港市海州区高新八路2号（江苏海洋大学宋跳校区）</p>
+                            </div>
+                            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md">
+                                <h3 class="text-lg font-bold text-gray-800 dark:text-gray-100 flex items-center">
+                                    <i data-lucide="map-pin" class="w-5 h-5 mr-2 text-green-500"></i>
+                                    取件点
+                                </h3>
+                                <p class="mt-4 text-gray-600 dark:text-gray-300">食堂南侧菜鸟驿站。顺丰在华龙仓超市隔壁（第一食堂对面），京东在卫生院北侧。</p>
+                            </div>
+                            <div class="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-xl p-4">
+                                <p class="text-sm text-orange-800 dark:text-orange-200 flex items-start">
+                                    <i data-lucide="info" class="w-4 h-4 mr-2 mt-0.5 flex-shrink-0"></i>
+                                    <span><strong>建议：</strong>开学行李较多可提前快递到校，减轻报到负担</span>
+                                </p>
+                            </div>
+                        </div>
+                    `
+                },
+                'life-transport': {
+                    title: '交通出行',
+                    content: `
+                        <div class="fade-in space-y-4">
+                            <div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md">
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-sm">
+                                        <thead class="bg-blue-900 text-white">
+                                            <tr>
+                                                <th class="p-3 text-left">出发地</th>
+                                                <th class="p-3 text-left">方式</th>
+                                                <th class="p-3 text-left">详情</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700"><td class="p-3 font-medium">苏欣汽车客运站</td><td class="p-3">公交</td><td class="p-3">乘16路 → 海洋大学宋跳站，约40分钟</td></tr>
+                                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700"><td class="p-3 font-medium">连云港火车站</td><td class="p-3">公交</td><td class="p-3">乘B11路(花果山方向) → 如意集团站 → 步行737m，约55分钟</td></tr>
+                                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700"><td class="p-3 font-medium">花果山机场</td><td class="p-3">机场大巴+公交</td><td class="p-3">机场巴士1号线→苏欣快客站→换乘16路，约1小时15分钟</td></tr>
+                                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700"><td class="p-3 font-medium">自驾</td><td class="p-3">高速</td><td class="p-3">G25/G30高速 → 宋跳收费站下，沿连天线行驶约1.5公里</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-4">
+                                <p class="text-sm text-blue-800 dark:text-blue-200 flex items-start">
+                                    <i data-lucide="info" class="w-4 h-4 mr-2 mt-0.5 flex-shrink-0"></i>
+                                    <span>新生报到期间，连云港汽车总站、苏欣快客站、连云港火车站均设有学校接站点，可乘坐接站大巴直达校区。</span>
+                                </p>
+                            </div>
+                        </div>
+                    `
+                },
+                'life-facilities': {
+                    title: '生活设施',
+                    content: `
+                        <div class="fade-in">
+                            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-600 dark:text-gray-300">
+                                    <div class="flex items-start p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                                        <span class="text-xl mr-3">🧺</span><div><strong>洗衣</strong><br>每层楼均配备洗衣机，使用"U净"APP扫码使用</div>
+                                    </div>
+                                    <div class="flex items-start p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                                        <span class="text-xl mr-3">🚿</span><div><strong>洗澡</strong><br>食堂旁边浴室。两种方式：①校园卡插入卡槽 ②完美校园APP获取验证码输入卡机</div>
+                                    </div>
+                                    <div class="flex items-start p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                                        <span class="text-xl mr-3">⚡</span><div><strong>电费</strong><br>关注"江苏海洋大学微后勤"公众号→用电充值→选择校区楼号房间</div>
+                                    </div>
+                                    <div class="flex items-start p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                                        <span class="text-xl mr-3">🖨</span><div><strong>打印</strong><br>快递站旁，扫码缴费</div>
+                                    </div>
+                                    <div class="flex items-start p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                                        <span class="text-xl mr-3">🏥</span><div><strong>医务室</strong><br>行政楼1楼最西侧，24小时有值班人员</div>
+                                    </div>
+                                    <div class="flex items-start p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                                        <span class="text-xl mr-3">🛵</span><div><strong>电动车充电</strong><br>宿舍楼下及行政楼下，有编号充电桩</div>
+                                    </div>
+                                    <div class="flex items-start p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                                        <span class="text-xl mr-3">💇</span><div><strong>吹头发</strong><br>男/女生宿舍楼下（找不到问宿管阿姨）</div>
+                                    </div>
+                                    <div class="flex items-start p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                                        <span class="text-xl mr-3">🔥</span><div><strong>微波炉</strong><br>宿舍楼下可热饭菜</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                },
+                'life-contact': {
+                    title: '联系方式',
+                    content: `
+                        <div class="fade-in">
+                            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md">
+                                <ul class="space-y-4 text-gray-600 dark:text-gray-300">
+                                    <li class="flex items-start"><i data-lucide="phone" class="w-5 h-5 mr-3 text-green-500 flex-shrink-0 mt-0.5"></i><span><strong>咨询电话：</strong>0518-85153215、0518-85153218、80307598</span></li>
+                                    <li class="flex items-start"><i data-lucide="phone" class="w-5 h-5 mr-3 text-green-500 flex-shrink-0 mt-0.5"></i><span><strong>监督电话：</strong>0518-85895131、85895032</span></li>
+                                    <li class="flex items-start"><i data-lucide="globe" class="w-5 h-5 mr-3 text-green-500 flex-shrink-0 mt-0.5"></i><span><strong>学校官网：</strong><a href="https://www.jou.edu.cn" target="_blank" class="text-blue-600 underline">https://www.jou.edu.cn</a></span></li>
+                                    <li class="flex items-start"><i data-lucide="globe" class="w-5 h-5 mr-3 text-green-500 flex-shrink-0 mt-0.5"></i><span><strong>招生网址：</strong><a href="https://zsxx.jou.edu.cn" target="_blank" class="text-blue-600 underline">https://zsxx.jou.edu.cn</a></span></li>
+                                    <li class="flex items-start"><i data-lucide="globe" class="w-5 h-5 mr-3 text-green-500 flex-shrink-0 mt-0.5"></i><span><strong>教务信息网：</strong><a href="https://jwc.jou.edu.cn" target="_blank" class="text-blue-600 underline">https://jwc.jou.edu.cn</a></span></li>
+                                    <li class="flex items-start"><i data-lucide="map-pin" class="w-5 h-5 mr-3 text-green-500 flex-shrink-0 mt-0.5"></i><span><strong>校区地址：</strong>江苏省连云港市海州区高新八路2号 邮编：222069</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    `
+                },
+                // --- 常见问题 ---
+                faq: {
+                    title: '常见问题',
+                    content: `
+                        <div class="fade-in space-y-2" id="faq-container">
+                            <div class="faq-item bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
+                                <button class="faq-question w-full p-4 text-left font-semibold text-gray-800 dark:text-gray-200 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                                    <span>床铺尺寸多大？</span>
+                                    <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-gray-400 transition-transform"></i>
+                                </button>
+                                <div class="faq-answer px-4 pb-4 text-gray-600 dark:text-gray-300 hidden">190cm×90cm，如有特殊需求可申请加长床。</div>
+                            </div>
+                            <div class="faq-item bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
+                                <button class="faq-question w-full p-4 text-left font-semibold text-gray-800 dark:text-gray-200 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                                    <span>能提前寄行李到学校吗？</span>
+                                    <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-gray-400 transition-transform"></i>
+                                </button>
+                                <div class="faq-answer px-4 pb-4 text-gray-600 dark:text-gray-300 hidden">可以。收货地址：江苏省连云港市海州区高新八路2号。菜鸟驿站代收，减轻报到当天负担。</div>
+                            </div>
+                            <div class="faq-item bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
+                                <button class="faq-question w-full p-4 text-left font-semibold text-gray-800 dark:text-gray-200 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                                    <span>校园卡怎么充值？</span>
+                                    <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-gray-400 transition-transform"></i>
+                                </button>
+                                <div class="faq-answer px-4 pb-4 text-gray-600 dark:text-gray-300 hidden">饭卡：下载中国农业银行APP，搜索"生活缴费"点击"校园卡"。水卡：食堂一楼中间靠墙卡机，放卡按F键输入金额按OK（余额≤10元才能充）。</div>
+                            </div>
+                            <div class="faq-item bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
+                                <button class="faq-question w-full p-4 text-left font-semibold text-gray-800 dark:text-gray-200 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                                    <span>宿舍有空调吗？</span>
+                                    <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-gray-400 transition-transform"></i>
+                                </button>
+                                <div class="faq-answer px-4 pb-4 text-gray-600 dark:text-gray-300 hidden">所有宿舍均配备空调和风扇，每层楼配2-4台洗衣机。</div>
+                            </div>
+                            <div class="faq-item bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
+                                <button class="faq-question w-full p-4 text-left font-semibold text-gray-800 dark:text-gray-200 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                                    <span>宽带WiFi怎么办理？</span>
+                                    <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-gray-400 transition-transform"></i>
+                                </button>
+                                <div class="faq-answer px-4 pb-4 text-gray-600 dark:text-gray-300 hidden">校内设有运营商营业厅。三家运营商套餐约39-49元/月（含校园卡+宽带）。也可申请5G校园专网（5g.jou.edu.cn）直接访问校内资源。</div>
+                            </div>
+                            <div class="faq-item bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
+                                <button class="faq-question w-full p-4 text-left font-semibold text-gray-800 dark:text-gray-200 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                                    <span>洗澡怎么洗？</span>
+                                    <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-gray-400 transition-transform"></i>
+                                </button>
+                                <div class="faq-answer px-4 pb-4 text-gray-600 dark:text-gray-300 hidden">食堂旁边的浴室。用校园卡插入卡槽出水，或者用完美校园APP获取验证码输入卡机。</div>
+                            </div>
+                            <div class="faq-item bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
+                                <button class="faq-question w-full p-4 text-left font-semibold text-gray-800 dark:text-gray-200 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                                    <span>医务室在哪？</span>
+                                    <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-gray-400 transition-transform"></i>
+                                </button>
+                                <div class="faq-answer px-4 pb-4 text-gray-600 dark:text-gray-300 hidden">行政楼1楼最西侧（进门右手边第一个房间），24小时有值班人员。</div>
+                            </div>
+                            <div class="faq-item bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
+                                <button class="faq-question w-full p-4 text-left font-semibold text-gray-800 dark:text-gray-200 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                                    <span>电车在哪充电？</span>
+                                    <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-gray-400 transition-transform"></i>
+                                </button>
+                                <div class="faq-answer px-4 pb-4 text-gray-600 dark:text-gray-300 hidden">男/女生宿舍楼下、行政楼下，每个充电桩有编号，插好充电器后按号码充值。</div>
+                            </div>
+                            <div class="faq-item bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
+                                <button class="faq-question w-full p-4 text-left font-semibold text-gray-800 dark:text-gray-200 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                                    <span>快递在哪拿？</span>
+                                    <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-gray-400 transition-transform"></i>
+                                </button>
+                                <div class="faq-answer px-4 pb-4 text-gray-600 dark:text-gray-300 hidden">食堂南侧菜鸟驿站。顺丰在华龙仓超市隔壁（一食堂对面），京东在卫生院北侧。</div>
+                            </div>
+                            <div class="faq-item bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
+                                <button class="faq-question w-full p-4 text-left font-semibold text-gray-800 dark:text-gray-200 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                                    <span>电费怎么充值？</span>
+                                    <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-gray-400 transition-transform"></i>
+                                </button>
+                                <div class="faq-answer px-4 pb-4 text-gray-600 dark:text-gray-300 hidden">关注"江苏海洋大学微后勤"公众号→点击"用电充值"→选择校区、楼号、楼层、房间号→选择金额充值。</div>
+                            </div>
+                            <div class="faq-item bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
+                                <button class="faq-question w-full p-4 text-left font-semibold text-gray-800 dark:text-gray-200 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                                    <span>衣服怎么洗？</span>
+                                    <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-gray-400 transition-transform"></i>
+                                </button>
+                                <div class="faq-answer px-4 pb-4 text-gray-600 dark:text-gray-300 hidden">每层楼都有洗衣机，使用"U净"APP，打开蓝牙扫码选择时长即可。</div>
+                            </div>
+                            <div class="faq-item bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
+                                <button class="faq-question w-full p-4 text-left font-semibold text-gray-800 dark:text-gray-200 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                                    <span>报到需要带什么？</span>
+                                    <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-gray-400 transition-transform"></i>
+                                </button>
+                                <div class="faq-answer px-4 pb-4 text-gray-600 dark:text-gray-300 hidden">专科毕业证书（原件）、录取通知书、身份证原件及复印件、近期免冠一寸照片若干张、个人档案。</div>
+                            </div>
+                        </div>
+                    `
+                }
+            }
+        };
+
+        function renderHome() {
+            return `
+                <!-- Hero -->
+                <div class="rounded-2xl bg-gradient-to-br from-blue-600 via-blue-700 to-orange-500 text-white p-8 md:p-12 mb-8 text-center">
+                    <h1 class="text-3xl md:text-5xl font-bold mb-4">你好，宋跳新同学</h1>
+                    <p class="text-lg md:text-xl text-blue-100">江苏海洋大学宋跳校区 · 新生指南</p>
+                    <p class="mt-2 text-sm text-blue-200">应用技术学院 — 专升本 · 职教高考</p>
+                </div>
+                <!-- 快速入口 -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                    <button onclick="navigateTo('enroll-process')" class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow text-center">
+                        <i data-lucide="graduation-cap" class="w-8 h-8 mx-auto mb-2 text-orange-500"></i>
+                        <p class="font-semibold text-gray-800 dark:text-gray-200">入学指南</p>
+                        <p class="text-xs text-gray-500 mt-1">报到 · 专业 · 费用</p>
+                    </button>
+                    <button onclick="navigateTo('study-credit')" class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow text-center">
+                        <i data-lucide="book-open" class="w-8 h-8 mx-auto mb-2 text-blue-500"></i>
+                        <p class="font-semibold text-gray-800 dark:text-gray-200">学习指南</p>
+                        <p class="text-xs text-gray-500 mt-1">学分制 · 书院 · 导师</p>
+                    </button>
+                    <button onclick="navigateTo('life-campus-card')" class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow text-center">
+                        <i data-lucide="backpack" class="w-8 h-8 mx-auto mb-2 text-green-500"></i>
+                        <p class="font-semibold text-gray-800 dark:text-gray-200">生活指南</p>
+                        <p class="text-xs text-gray-500 mt-1">校园卡 · 网络 · 交通</p>
+                    </button>
+                    <button onclick="navigateTo('faq')" class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow text-center">
+                        <i data-lucide="circle-help" class="w-8 h-8 mx-auto mb-2 text-purple-500"></i>
+                        <p class="font-semibold text-gray-800 dark:text-gray-200">常见问题</p>
+                        <p class="text-xs text-gray-500 mt-1">FAQ</p>
+                    </button>
+                </div>
+                <!-- 校区简介 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-6 md:p-8 shadow-md">
+                    <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">关于宋跳校区</h2>
+                    <div class="prose dark:prose-invert max-w-none text-gray-600 dark:text-gray-300 space-y-3">
+                        <p>宋跳校区位于江苏省连云港市海州区高新八路2号，地处宋跳高新技术开发区，占地约300亩，建筑面积8万余平方米，是江苏省"园林式单位"。</p>
+                        <p>校区内设有应用技术学院，是江苏海洋大学下属的公办二级学院，专门承担<strong>专转本（专升本）</strong>和<strong>对口单招（职教高考）</strong>学生的培养任务。学院前身为1998年成立的淮海工学院东港学院，2019年随学校更名为江苏海洋大学应用技术学院，现有在校生约2900余人。</p>
+                        <p>学院在国内高校中率先推行以<strong>选课制、导师制和书院制</strong>为核心的完全学分制人才培养模式（"东港模式"），设有海州、瀛洲、郁洲、凌州、环洲五大书院，实行弹性学制（3-6年），学生可跨专业选修课程。</p>
+                        <p>学院拥有近30个实验室，与15家企业共建实习基地，推行"一书多证"制度，培养"基础实、能力强、上手快、后劲足"的应用技术人才。</p>
+                    </div>
+                </div>
+            `;
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             if (typeof lucide !== 'undefined') {
                 lucide.createIcons();
             }
+            // FAQ accordion toggle
+            document.addEventListener('click', function(e) {
+                const q = e.target.closest('.faq-question');
+                if (q) {
+                    const answer = q.nextElementSibling;
+                    const icon = q.querySelector('.faq-icon');
+                    answer.classList.toggle('hidden');
+                    icon.style.transform = answer.classList.contains('hidden') ? '' : 'rotate(180deg)';
+                }
+            });
         });
     </script>
 </body>
