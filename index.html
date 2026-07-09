@@ -113,9 +113,91 @@
     </style>
 </head>
 <body>
-    <!-- 后续所有 HTML 写在这里 -->
+    <!-- 加载动画 -->
+    <div id="loading-overlay"
+        class="fixed inset-0 bg-white dark:bg-gray-950 z-[100] flex flex-col items-center justify-center transition-opacity duration-500">
+        <div class="loader"></div>
+        <p class="mt-4 text-lg font-semibold text-gray-700 dark:text-gray-300">宋跳校区新生指南</p>
+        <p class="text-sm text-gray-500">正在加载...</p>
+    </div>
+
+    <!-- 主视图 -->
+    <div id="main-view" class="flex h-screen relative">
+        <!-- 移动端遮罩层 -->
+        <div id="sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden md:hidden"></div>
+
+        <!-- 侧边栏 -->
+        <aside id="sidebar"
+            class="w-72 bg-blue-900 dark:bg-gray-900 text-white p-5 overflow-y-auto transition-transform transform -translate-x-full md:translate-x-0 fixed md:relative h-full z-50 shadow-lg flex flex-col">
+            <div class="text-center mb-8">
+                <h1 class="text-2xl font-bold tracking-wider">宋跳校区</h1>
+                <p class="text-sm text-blue-200 dark:text-gray-400 mt-1">新生指南</p>
+            </div>
+            <!-- JS 动态渲染导航 -->
+            <nav id="nav-menu" class="flex-grow"></nav>
+            <!-- 底部工具栏 -->
+            <div class="mt-auto pt-4 border-t border-blue-800 dark:border-gray-700 space-y-2">
+                <!-- 深色模式按钮（JS 初始化） -->
+                <button id="theme-toggle-btn"
+                    class="w-full flex items-center justify-center px-4 py-2 text-sm text-blue-200 dark:text-gray-300 rounded-md hover:bg-blue-800 dark:hover:bg-gray-700 transition-colors">
+                    <span id="theme-icon-sun" class="mr-2"><i data-lucide="sun" class="w-4 h-4"></i></span>
+                    <span id="theme-icon-moon" class="mr-2 hidden"><i data-lucide="moon" class="w-4 h-4"></i></span>
+                    <span id="theme-text">切换深色模式</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- 主内容 -->
+        <main class="flex-1 flex flex-col overflow-hidden">
+            <header class="bg-white dark:bg-gray-900 dark:border-b dark:border-gray-800 shadow-md p-3 flex justify-between items-center z-10 flex-shrink-0">
+                <button id="menu-toggle" class="md:hidden text-gray-700 dark:text-gray-300">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+                <h2 id="content-title" class="text-xl font-semibold text-gray-800 dark:text-gray-100 truncate">
+                    宋跳校区新生指南
+                </h2>
+                <a href="#" id="home-link" class="text-gray-600 dark:text-gray-400 hover:text-blue-700 transition-colors">
+                    <i data-lucide="home" class="w-5 h-5"></i>
+                </a>
+            </header>
+            <div id="content-area"
+                class="flex-1 px-4 md:px-8 py-6 overflow-y-auto bg-gray-50 dark:bg-gray-950">
+                <!-- JS 动态加载 -->
+            </div>
+        </main>
+    </div>
+
+    <!-- 移动端底部导航 -->
+    <footer id="bottom-nav"
+        class="fixed bottom-0 left-0 right-0 h-16 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 flex justify-around items-center z-30 md:hidden">
+        <button data-nav="home" class="nav-btn flex flex-col items-center text-gray-600 dark:text-gray-400 transition-colors active">
+            <i data-lucide="home" class="w-6 h-6"></i>
+            <span class="text-xs mt-1">首页</span>
+        </button>
+        <button data-nav="enroll" class="nav-btn flex flex-col items-center text-gray-600 dark:text-gray-400 transition-colors">
+            <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+            <span class="text-xs mt-1">入学</span>
+        </button>
+        <button data-nav="study" class="nav-btn flex flex-col items-center text-gray-600 dark:text-gray-400 transition-colors">
+            <i data-lucide="book-open" class="w-6 h-6"></i>
+            <span class="text-xs mt-1">学习</span>
+        </button>
+        <button data-nav="life" class="nav-btn flex flex-col items-center text-gray-600 dark:text-gray-400 transition-colors">
+            <i data-lucide="backpack" class="w-6 h-6"></i>
+            <span class="text-xs mt-1">生活</span>
+        </button>
+        <button data-nav="faq" class="nav-btn flex flex-col items-center text-gray-600 dark:text-gray-400 transition-colors">
+            <i data-lucide="circle-help" class="w-6 h-6"></i>
+            <span class="text-xs mt-1">问答</span>
+        </button>
+    </footer>
+
     <script>
-        /* 后续所有 JS 写在这里 */
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        });
     </script>
 </body>
 </html>
