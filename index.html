@@ -110,22 +110,22 @@
     </style>
 </head>
 <body>
-    <!-- 加载动画 -->
+    <!-- 加载广告弹窗 -->
     <div id="loading-overlay"
-        class="fixed inset-0 bg-white dark:bg-gray-950 z-[100] flex flex-col items-center justify-center transition-opacity duration-500">
-        <div class="mb-3 flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-red-600 flex items-center justify-center">
-                <span class="text-white font-bold text-sm">中</span>
-            </div>
-            <span class="text-2xl font-black tracking-wider" style="color:#E00000">中国联通</span>
+        class="fixed inset-0 bg-white dark:bg-gray-950 z-[200] flex flex-col items-center justify-center transition-opacity duration-500">
+        <div class="absolute top-4 left-4 flex items-center gap-2 opacity-50">
+            <span class="text-sm font-bold text-red-600">中国联通</span>
         </div>
-        <div class="loader"></div>
-        <p class="mt-4 text-base font-semibold text-gray-700 dark:text-gray-300">宋跳校区新生指南</p>
-        <p class="text-sm text-gray-500">正在加载...</p>
+        <img src="wanju.jpg" alt="中国联通" class="w-full max-w-md rounded-xl shadow-2xl mx-4" style="max-height:70vh;object-fit:contain">
+        <p id="ad-timer" class="mt-6 text-2xl font-bold text-red-600">2</p>
+        <p class="text-sm text-gray-500">广告</p>
+        <button id="close-ad-btn" class="mt-4 hidden px-10 py-3 bg-red-600 hover:bg-red-700 text-white rounded-full font-bold text-lg transition-colors" onclick="dismissAd()">
+            关闭广告
+        </button>
     </div>
 
     <!-- 主视图 -->
-    <div id="main-view" class="flex h-screen relative">
+    <div id="main-view" class="flex h-screen relative hidden">
         <!-- 移动端遮罩层 -->
         <div id="sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden md:hidden"></div>
 
@@ -235,7 +235,7 @@
                     ]
                 },
                 { id: 'faq', icon: 'circle-help', label: '常见问题' },
-                { id: 'contact', icon: 'phone', label: '联系我们' }
+                { id: 'contact', icon: 'phone', label: '校园服务' }
             ],
             pages: {
                 home: { title: '首页概况', render: renderHome },
@@ -548,13 +548,20 @@
                                     收货地址
                                 </h3>
                                 <p class="mt-4 text-gray-600 dark:text-gray-300">江苏省连云港市海州区高新八路2号（江苏海洋大学宋跳校区）</p>
+                                <p class="mt-1 text-sm text-gray-500">邮编：222069</p>
                             </div>
                             <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md">
                                 <h3 class="text-lg font-bold text-gray-800 dark:text-gray-100 flex items-center">
                                     <i data-lucide="map-pin" class="w-5 h-5 mr-2 text-green-500"></i>
-                                    取件点
+                                    取件点（宋跳校区）
                                 </h3>
-                                <p class="mt-4 text-gray-600 dark:text-gray-300">食堂南侧菜鸟驿站。顺丰在华龙仓超市隔壁（第一食堂对面），京东在卫生院北侧。</p>
+                                <div class="mt-4 space-y-2 text-gray-600 dark:text-gray-300">
+                                    <p><strong>菜鸟驿站：</strong>食堂南侧（主要快递收发点）</p>
+                                    <p><strong>顺丰快递：</strong>华龙仓超市隔壁，第一食堂对面</p>
+                                    <p><strong>京东快递：</strong>卫生院北侧，顺丰快递南侧</p>
+                                    <p><strong>中国邮政：</strong>顺丰快递旁边</p>
+                                </div>
+                                <p class="mt-3 text-xs text-gray-500">各快递点具体取件以收到的短信通知为准。开学行李较多可提前快递到校，减轻报到当天负担。</p>
                             </div>
                             <div class="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-xl p-4">
                                 <p class="text-sm text-orange-800 dark:text-orange-200 flex items-start">
@@ -742,7 +749,7 @@
                     `
                 },
                 'contact': {
-                    title: '联系我们',
+                    title: '校园服务',
                     content: `
                         <div class="fade-in space-y-6">
                             <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md">
@@ -1010,15 +1017,32 @@
         });
 
         // 页面加载完成后淡出加载动画
+        // 广告弹窗倒计时
         window.addEventListener('load', function() {
-            setTimeout(function() {
-                const overlay = document.getElementById('loading-overlay');
-                if (overlay) {
-                    overlay.style.opacity = '0';
-                    setTimeout(() => { overlay.style.display = 'none'; }, 500);
+            let adSeconds = 2;
+            const timerEl = document.getElementById('ad-timer');
+            const btnEl = document.getElementById('close-ad-btn');
+            const interval = setInterval(function() {
+                adSeconds--;
+                if (timerEl) timerEl.textContent = adSeconds;
+                if (adSeconds <= 0) {
+                    clearInterval(interval);
+                    if (timerEl) timerEl.classList.add('hidden');
+                    if (btnEl) btnEl.classList.remove('hidden');
                 }
-            }, 600);
+            }, 1000);
         });
+
+        function dismissAd() {
+            const overlay = document.getElementById('loading-overlay');
+            if (overlay) {
+                overlay.style.opacity = '0';
+                document.getElementById('main-view')?.classList.remove('hidden');
+                setTimeout(function() {
+                    overlay.style.display = 'none';
+                }, 500);
+            }
+        }
     </script>
 </body>
 </html>
