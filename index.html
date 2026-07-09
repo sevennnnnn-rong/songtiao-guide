@@ -775,7 +775,151 @@
             `;
         }
 
+        function renderNav() {
+            const nav = document.getElementById('nav-menu');
+            let html = '';
+            guideData.nav.forEach(item => {
+                if (item.children) {
+                    html += `
+                        <div class="mb-1">
+                            <div class="category-header flex items-center justify-between px-3 py-2.5 rounded-md cursor-pointer hover:bg-blue-800 dark:hover:bg-gray-800 transition-colors text-blue-200 dark:text-gray-300" data-category="${item.id}">
+                                <span class="flex items-center">
+                                    <i data-lucide="${item.icon}" class="w-4 h-4 mr-3"></i>
+                                    <span>${item.label}</span>
+                                </span>
+                                <i data-lucide="chevron-down" class="accordion-icon w-4 h-4"></i>
+                            </div>
+                            <div class="submenu" data-submenu="${item.id}">
+                                ${item.children.map(child => `
+                                    <a href="#" class="sidebar-link flex items-center px-8 py-2 text-sm text-blue-200 dark:text-gray-400 rounded-md hover:bg-blue-800 dark:hover:bg-gray-800 transition-colors" data-page="${child.id}">
+                                        <i data-lucide="circle" class="w-1.5 h-1.5 mr-2"></i>
+                                        ${child.label}
+                                    </a>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    html += `
+                        <a href="#" class="sidebar-link flex items-center px-3 py-2.5 rounded-md hover:bg-blue-800 dark:hover:bg-gray-800 transition-colors text-blue-200 dark:text-gray-300 ${item.id === 'home' ? 'active' : ''}" data-page="${item.id}">
+                            <i data-lucide="${item.icon}" class="w-4 h-4 mr-3"></i>
+                            <span>${item.label}</span>
+                        </a>
+                    `;
+                }
+            });
+            nav.innerHTML = html;
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
+        function navigateTo(pageId) {
+            const data = guideData.pages[pageId];
+            if (!data) return;
+
+            // 更新标题
+            document.getElementById('content-title').textContent = data.title;
+
+            // 更新内容
+            const area = document.getElementById('content-area');
+
+            if (typeof data.render === 'function') {
+                area.innerHTML = data.render();
+            } else {
+                area.innerHTML = data.content || '<p class="text-gray-500">内容加载中...</p>';
+            }
+
+            // 重新初始化 Lucide 图标
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+
+            // 更新侧边栏激活态
+            document.querySelectorAll('.sidebar-link').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll(`.sidebar-link[data-page="${pageId}"]`).forEach(el => el.classList.add('active'));
+
+            // 更新底部导航
+            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+            for (const item of guideData.nav) {
+                if (item.id === pageId) {
+                    document.querySelector(`.nav-btn[data-nav="${item.id}"]`)?.classList.add('active');
+                    break;
+                }
+                if (item.children) {
+                    if (item.children.some(c => c.id === pageId)) {
+                        document.querySelector(`.nav-btn[data-nav="${item.id}"]`)?.classList.add('active');
+                        break;
+                    }
+                }
+            }
+
+            // 移动端关闭侧边栏
+            closeSidebar();
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function setupNavigation() {
+            // 侧边栏链接
+            document.addEventListener('click', function(e) {
+                const link = e.target.closest('.sidebar-link');
+                if (link && link.dataset.page) {
+                    e.preventDefault();
+                    navigateTo(link.dataset.page);
+                }
+            });
+
+            // 分类折叠
+            document.addEventListener('click', function(e) {
+                const cat = e.target.closest('.category-header');
+                if (cat) {
+                    const sub = document.querySelector(`[data-submenu="${cat.dataset.category}"]`);
+                    if (sub) {
+                        sub.classList.toggle('open');
+                        cat.classList.toggle('open');
+                    }
+                }
+            });
+
+            // 移动端菜单按钮
+            document.getElementById('menu-toggle')?.addEventListener('click', function() {
+                document.getElementById('sidebar').classList.toggle('-translate-x-full');
+                document.getElementById('sidebar-overlay').classList.toggle('hidden');
+            });
+
+            // 遮罩层关闭
+            document.getElementById('sidebar-overlay')?.addEventListener('click', closeSidebar);
+
+            // 底部导航
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const nav = this.dataset.nav;
+                    const item = guideData.nav.find(n => n.id === nav);
+                    if (item) {
+                        if (item.children && item.children.length > 0) {
+                            navigateTo(item.children[0].id);
+                        } else {
+                            navigateTo(item.id);
+                        }
+                    }
+                });
+            });
+
+            // 首页链接
+            document.getElementById('home-link')?.addEventListener('click', function(e) {
+                e.preventDefault();
+                navigateTo('home');
+            });
+        }
+
+        function closeSidebar() {
+            if (window.innerWidth < 768) {
+                document.getElementById('sidebar')?.classList.add('-translate-x-full');
+                document.getElementById('sidebar-overlay')?.classList.add('hidden');
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
+            renderNav();
+            setupNavigation();
+            navigateTo('home');
             if (typeof lucide !== 'undefined') {
                 lucide.createIcons();
             }
