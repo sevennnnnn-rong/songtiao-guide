@@ -187,6 +187,10 @@
             <i data-lucide="circle-help" class="w-6 h-6"></i>
             <span class="text-xs mt-1">问答</span>
         </button>
+        <button data-nav="contact" class="nav-btn flex flex-col items-center text-gray-600 dark:text-gray-400 transition-colors">
+            <i data-lucide="phone" class="w-6 h-6"></i>
+            <span class="text-xs mt-1">联系</span>
+        </button>
     </footer>
 
     <script>
@@ -224,7 +228,8 @@
                         { id: 'life-contact', label: '联系方式' }
                     ]
                 },
-                { id: 'faq', icon: 'circle-help', label: '常见问题' }
+                { id: 'faq', icon: 'circle-help', label: '常见问题' },
+                { id: 'contact', icon: 'phone', label: '联系我们' }
             ],
             pages: {
                 home: { title: '首页概况', render: renderHome },
@@ -726,6 +731,35 @@
                                     <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-gray-400 transition-transform"></i>
                                 </button>
                                 <div class="faq-answer px-4 pb-4 text-gray-600 dark:text-gray-300 hidden">专科毕业证书（原件）、录取通知书、身份证原件及复印件、近期免冠一寸照片若干张、个人档案。</div>
+                            </div>
+                        </div>
+                    `
+                },
+                'contact': {
+                    title: '联系我们',
+                    content: `
+                        <div class="fade-in space-y-6">
+                            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md">
+                                <h3 class="text-lg font-bold text-gray-800 dark:text-gray-100 mb-4 text-center">宋跳校区校园服务</h3>
+                                <div class="space-y-4">
+                                    <div class="flex items-center p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                                        <i data-lucide="bike" class="w-6 h-6 mr-4 text-green-500 flex-shrink-0"></i>
+                                        <div><strong class="text-gray-800 dark:text-gray-200">二手电瓶车</strong><p class="text-sm text-gray-500">校内及周边二手电瓶车买卖，价格实惠</p></div>
+                                    </div>
+                                    <div class="flex items-center p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                                        <i data-lucide="car" class="w-6 h-6 mr-4 text-blue-500 flex-shrink-0"></i>
+                                        <div><strong class="text-gray-800 dark:text-gray-200">驾校报名</strong><p class="text-sm text-gray-500">本地驾校团报优惠，学生专享价格</p></div>
+                                    </div>
+                                    <div class="flex items-center p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                                        <i data-lucide="monitor" class="w-6 h-6 mr-4 text-purple-500 flex-shrink-0"></i>
+                                        <div><strong class="text-gray-800 dark:text-gray-200">线上课代刷</strong><p class="text-sm text-gray-500">网课托管，按时完成，价格合理</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md text-center">
+                                <h3 class="text-lg font-bold text-gray-800 dark:text-gray-100 mb-4">联系我</h3>
+                                <img src="contact-qr.jpg" alt="扫码联系" class="mx-auto w-48 h-48 rounded-lg object-cover">
+                                <p class="mt-4 text-gray-500 text-sm">长按识别二维码，备注"宋跳新生"</p>
                             </div>
                         </div>
                     `
