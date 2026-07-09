@@ -194,7 +194,7 @@
 
     <script>
         // === 指南数据 ===
-        const guideData = {
+        window.guideData = {
             nav: [
                 { id: 'home', icon: 'house', label: '首页概况' },
                 {
@@ -230,6 +230,7 @@
                 { id: 'faq', icon: 'circle-help', label: '常见问题' }
             ],
             pages: {
+                home: { title: '首页概况', render: renderHome },
                 // --- 入学指南 ---
                 'enroll-process': {
                     title: '报到流程',
@@ -590,28 +591,28 @@
                             <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md">
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-600 dark:text-gray-300">
                                     <div class="flex items-start p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-                                        <span class="text-xl mr-3">🧺</span><div><strong>洗衣</strong><br>每层楼均配备洗衣机，使用"U净"APP扫码使用</div>
+                                        <i data-lucide="shirt" class="w-5 h-5 mr-3 mt-0.5 text-blue-500 flex-shrink-0"></i><div><strong>洗衣</strong><br>每层楼均配备洗衣机，使用"U净"APP扫码使用</div>
                                     </div>
                                     <div class="flex items-start p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-                                        <span class="text-xl mr-3">🚿</span><div><strong>洗澡</strong><br>食堂旁边浴室。两种方式：①校园卡插入卡槽 ②完美校园APP获取验证码输入卡机</div>
+                                        <i data-lucide="droplets" class="w-5 h-5 mr-3 mt-0.5 text-blue-500 flex-shrink-0"></i><div><strong>洗澡</strong><br>食堂旁边浴室。两种方式：①校园卡插入卡槽 ②完美校园APP获取验证码输入卡机</div>
                                     </div>
                                     <div class="flex items-start p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-                                        <span class="text-xl mr-3">⚡</span><div><strong>电费</strong><br>关注"江苏海洋大学微后勤"公众号→用电充值→选择校区楼号房间</div>
+                                        <i data-lucide="zap" class="w-5 h-5 mr-3 mt-0.5 text-blue-500 flex-shrink-0"></i><div><strong>电费</strong><br>关注"江苏海洋大学微后勤"公众号→用电充值→选择校区楼号房间</div>
                                     </div>
                                     <div class="flex items-start p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-                                        <span class="text-xl mr-3">🖨</span><div><strong>打印</strong><br>快递站旁，扫码缴费</div>
+                                        <i data-lucide="printer" class="w-5 h-5 mr-3 mt-0.5 text-blue-500 flex-shrink-0"></i><div><strong>打印</strong><br>快递站旁，扫码缴费</div>
                                     </div>
                                     <div class="flex items-start p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-                                        <span class="text-xl mr-3">🏥</span><div><strong>医务室</strong><br>行政楼1楼最西侧，24小时有值班人员</div>
+                                        <i data-lucide="stethoscope" class="w-5 h-5 mr-3 mt-0.5 text-blue-500 flex-shrink-0"></i><div><strong>医务室</strong><br>行政楼1楼最西侧，24小时有值班人员</div>
                                     </div>
                                     <div class="flex items-start p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-                                        <span class="text-xl mr-3">🛵</span><div><strong>电动车充电</strong><br>宿舍楼下及行政楼下，有编号充电桩</div>
+                                        <i data-lucide="bike" class="w-5 h-5 mr-3 mt-0.5 text-blue-500 flex-shrink-0"></i><div><strong>电动车充电</strong><br>宿舍楼下及行政楼下，有编号充电桩</div>
                                     </div>
                                     <div class="flex items-start p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-                                        <span class="text-xl mr-3">💇</span><div><strong>吹头发</strong><br>男/女生宿舍楼下（找不到问宿管阿姨）</div>
+                                        <i data-lucide="wind" class="w-5 h-5 mr-3 mt-0.5 text-blue-500 flex-shrink-0"></i><div><strong>吹头发</strong><br>男/女生宿舍楼下（找不到问宿管阿姨）</div>
                                     </div>
                                     <div class="flex items-start p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-                                        <span class="text-xl mr-3">🔥</span><div><strong>微波炉</strong><br>宿舍楼下可热饭菜</div>
+                                        <i data-lucide="flame" class="w-5 h-5 mr-3 mt-0.5 text-blue-500 flex-shrink-0"></i><div><strong>微波炉</strong><br>宿舍楼下可热饭菜</div>
                                     </div>
                                 </div>
                             </div>
